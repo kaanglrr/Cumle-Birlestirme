@@ -1,0 +1,87 @@
+<meta name="viewport">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GENERİC TITLE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+
+
+<main>
+    <div class="d-flex justify-content-center">
+        <div class="form-group mb-3 w-25">
+            <label for="text1" class="form-label">Text 1</label>
+            <input type="text" class="form-control" id="text1" placeholder="Text Giriniz">
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-group mb-3 w-25">
+            <label for="text2" class="form-label">Text 2</label>
+            <input type="text" class="form-control" id="text2" placeholder="Text Giriniz">
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <div class="form-group w-50">
+
+            <label for="output">Birleştirilmiş Metin</label>
+            <textarea name="output" id="output"  rows="7" class="form-control"></textarea>
+
+        </div>
+    </div>
+</main>
+
+<aside>
+    <div class="d-flex justify-content-center">
+        <div class=" btn-group-vertical">
+
+            <button type="button" class="btn btn-primary m-2">Metin Ekle</button>
+            <button type="button" class="btn btn-primary m-2 ">Metinleri Birleştir</button>
+            <button type="button" class="btn btn-primary m-2 ">Birleşik Metni Kaydet</button>
+
+        </div>
+    </div>
+</aside>
+<script>
+    // Get the main section element
+    const mainSection = document.querySelector('main');
+
+    // Get the "Metin Ekle" button element
+    const addTextFieldBtn = document.querySelector('.btn-group-vertical button:first-of-type');
+
+    // Get the element below which the new text fields will be added
+    const text2 = document.querySelector('#text2');
+
+    // Create a container element for the new text fields
+    const textFieldContainer = document.createElement('div');
+    textFieldContainer.classList.add('d-flex', 'justify-content-center', 'flex-wrap', 'align-items-start', 'mb-3');
+
+    // Add a click event listener to the button
+    addTextFieldBtn.addEventListener('click', () => {
+        // Create a new input element
+        const newTextField = document.createElement('input');
+        newTextField.type = 'text';
+        newTextField.classList.add('form-control');
+        newTextField.placeholder = 'Text Giriniz';
+        newTextField.name = `text${mainSection.querySelectorAll('.form-group').length + 1}`;
+
+        // Create a new div element to wrap the input element
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('form-group', 'mb-3', 'w-25');
+        newDiv.appendChild(newTextField);
+
+        // Append the new div element to the text field container
+        textFieldContainer.appendChild(newDiv);
+
+        // Insert the text field container below the text2 element
+        text2.parentNode.insertBefore(textFieldContainer, text2.nextSibling);
+    });
+</script>

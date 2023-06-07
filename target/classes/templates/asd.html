@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript ile Veri Gönderme</title>
+  <style>
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3e8e41;
+    }
+
+    #addFieldBtn {
+      background-color: #008CBA;
+    }
+
+    #addFieldBtn:hover {
+      background-color: #006b8e;
+    }
+  </style>
+</head>
+<body>
+<form id="myForm">
+  <div class="d-flex justify-content-center">
+    <div class="form-group mb-3 w-25">
+      <label for="text1" class="form-label">Text 1</label>
+      <input type="text" class="form-control" id="text1" placeholder="Text Giriniz">
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <div class="form-group mb-3 w-25">
+      <label for="text2" class="form-label">Text 2</label>
+      <input type="text" class="form-control" id="text2" placeholder="Text Giriniz">
+    </div>
+  </div>
+</form>
+<button type="button" onclick="sendData()">Gönder</button>
+<button type="button" id="addFieldBtn" onclick="addTextField()">Metin Ekle</button>
+<script>
+  function sendData() {
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/controller/path", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+        const response = JSON.parse(xhr.responseText);
+        alert(response.message);
+      }
+    }
+    const data = JSON.stringify({ "name": name, "surname": surname });
+    xhr.send(data);
+  }
+
+  function addTextField() {
+    const form = document.getElementById("myForm");
+    const newInput = document.createElement("input");
+    newInput.setAttribute("type", "text");
+    newInput.setAttribute("name", "newField");
+    form.appendChild(newInput);
+  }
+</script>
+</body>
+</html>
